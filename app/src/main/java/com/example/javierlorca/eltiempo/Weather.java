@@ -1,5 +1,7 @@
 package com.example.javierlorca.eltiempo;
 
+import java.math.RoundingMode;
+
 /**
  * Created by Javier Lorca on 05/02/2018.
  */
@@ -45,6 +47,7 @@ public class Weather {
     }
 
     public void setTemp(double temp) {
+
         this.temp = temp;
     }
 
@@ -64,5 +67,15 @@ public class Weather {
         this.wind_deg = wind_deg;
     }
 
+
+    public double toCelsius(double kelvin){
+        return kelvin-273.15;
+    }
+
+    public double tokmhora(double kmhora){
+        //kmhora=wind_speed/1000*3600;
+        return kmhora/1000*3600;
+        //return kmhora=(wind_speed/1000)*3600;
+    }
 
 }

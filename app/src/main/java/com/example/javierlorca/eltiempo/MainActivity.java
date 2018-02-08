@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
         txttemp_max=(TextView)findViewById(R.id.txttemp_max);
         txttemp_min=(TextView)findViewById(R.id.txttemp_min);
         txtviento=(TextView)findViewById(R.id.txtviento);
-        tvxdiasemana=(TextView)findViewById(R.id.txvdiasemana);
-        tvxhora=(TextView)findViewById(R.id.txvhora);
+        //tvxdiasemana=(TextView)findViewById(R.id.txvdiasemana);
+        //tvxhora=(TextView)findViewById(R.id.txvhora);
         tvxgrados=(TextView)findViewById(R.id.txvgrados);
         tvxprevision=(TextView)findViewById(R.id.txvprevision);
         //ListView lvlista=(ListView)findViewById(R.id.lvlista);
-        lyhorizontal=(LinearLayout)findViewById(R.id.lyhorizontal);
-        txvprueba=(TextView)findViewById(R.id.txvprueba);
+       //lyhorizontal=(LinearLayout)findViewById(R.id.lyhorizontal);
+        //txvprueba=(TextView)findViewById(R.id.txvprueba);
         final TextView txverror=(TextView)findViewById(R.id.txverror);
         mPrefs=getPreferences(MODE_PRIVATE);
     final Context context=this;
@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         //recupero los datos almacenados
         Gson gsonrecu = new Gson();
         String jsonrec = mPrefs.getString("w", "");
-        Weather obj = gsonrecu.fromJson(jsonrec, Weather.class);
-        if(obj!=null){
+        w = gsonrecu.fromJson(jsonrec, Weather.class);
+        if(w!=null){
             showData();
         }else{
             loadData(context);
@@ -139,15 +139,14 @@ public class MainActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
         //COMENTARIO
-    }
+    }//fin load data
 
     public void showData(){
-        txvprueba.setText(""+w.getWind_deg());
-        tvxgrados.setText(""+w.getTemp());
-        txtviento.setText(""+w.getWind_speed());
-        txttemp_max.setText(""+w.getTemp_max());
-        txttemp_min.setText(""+w.getTemp_min());
-
+        //txvprueba.setText(""+w.getWind_deg());
+        tvxgrados.setText(String.format("%.1f",w.toCelsius(w.getTemp())));//temperatura actual
+        txtviento.setText(""+w.tokmhora(w.getWind_speed()));//velocidad del viento
+        txttemp_max.setText(String.format("%.0f",w.toCelsius(w.getTemp_max())));//temperatura maxima
+        txttemp_min.setText(String.format("%.0f",w.toCelsius(w.getTemp_min())));//temperatura minima
 
     }
 
