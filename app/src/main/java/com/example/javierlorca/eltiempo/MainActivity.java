@@ -141,6 +141,71 @@ public class MainActivity extends AppCompatActivity {
         //COMENTARIO
     }//fin load data
 
+
+
+    /**---------------------------------------INICIO SEGUNDO LOAD--------------------------------------------**/
+
+    public void loadDataPrev(Context context){
+        /**----------------------INICIO SEGUNDA API------------------------**/
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url ="http://samples.openweathermap.org/data/2.5/forecast/daily?id=524901&appid=b1b15e88fa797225412429c1c50c122a1";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        try {
+                            JSONObject json= new JSONObject(response);
+                            JSONObject list=json.getJSONObject("list");
+                            JSONObject temp=json.getJSONObject("temp");
+                            double temp = main.getDouble("temp");
+                            double temp_max=main.getDouble("temp_max");
+                            //String name=json.getString("name");
+                            int code=json.getInt("cod");
+
+                            f= new Forcast();
+                            f.setTemp(list.getDouble("day"));
+                            f.setTemp(list.getDouble("temp"));
+                            f.setTemp_max(list.getDouble("temp_max"));
+                            f.setTemp_min(list.getDouble("temp_min"));
+                            f.setWind_speed(wind.getInt("speed"));
+                            f.setWind_deg(wind.getInt("deg"));
+
+                            //en JSON almaceno objetos
+                            SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                            Gson gson= new Gson();
+                            String jsonpref=gson.toJson(w);
+                            prefsEditor.putString("w", jsonpref);
+                            prefsEditor.commit();
+
+                            showData();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                txvprueba.setText(error.getMessage());
+            }
+            /**----------------------FIN SEGUNDA API------------------------**/
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        //COMENTARIO
+    }//fin load data
+
+    /**----------------------------FIN SEGUNDO LOAD-----------------------------**/
+
+
+
+
     public void showData(){
         //txvprueba.setText(""+w.getWind_deg());
         tvxgrados.setText(String.format("%.1f",w.toCelsius(w.getTemp())));//temperatura actual

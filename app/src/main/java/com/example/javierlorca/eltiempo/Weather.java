@@ -52,23 +52,28 @@ public class Weather {
     }
 
     public void setTemp_max(double temp_max) {
+
         this.temp_max = temp_max;
     }
 
     public void setTemp_min(double temp_min) {
+
         this.temp_min = temp_min;
     }
 
     public void setWind_speed(int wind_speed) {
+
         this.wind_speed = wind_speed;
     }
 
     public void setWind_deg(int wind_deg) {
+
         this.wind_deg = wind_deg;
     }
 
 
     public double toCelsius(double kelvin){
+
         return kelvin-273.15;
     }
 

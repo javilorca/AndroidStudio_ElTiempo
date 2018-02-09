@@ -16,7 +16,8 @@
         android:layout_marginStart="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fondo" />
+        app:srcCompat="@drawable/fondo"
+        android:layout_marginLeft="4dp" />
 
     <TextView
         android:id="@+id/txvgrados"
@@ -48,7 +49,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.406" />
+        app:layout_constraintVertical_bias="0.406"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/txverror"
@@ -86,7 +88,8 @@
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="24dp" />
 
     <TextView
         android:id="@+id/txttemp_min"
@@ -98,7 +101,8 @@
         android:textColor="@android:color/background_light"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temminima" />
+        app:layout_constraintTop_toBottomOf="@+id/temminima"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/txtgrados"
@@ -111,7 +115,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txvgrados"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="168dp" />
 
     <TextView
         android:id="@+id/temmaxima"
@@ -127,7 +132,8 @@
         app:layout_constraintBottom_toTopOf="@+id/txttemp_max"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.177" />
+        app:layout_constraintVertical_bias="0.177"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/temminima"
@@ -140,7 +146,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txttemp_max" />
+        app:layout_constraintTop_toBottomOf="@+id/txttemp_max"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/velocidadviento"
@@ -156,6 +163,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txtviento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.069"
+        android:layout_marginRight="16dp" />
 
 </android.support.constraint.ConstraintLayout>
