@@ -6,17 +6,17 @@ package com.example.javierlorca.eltiempo;
 
 public class Forcast {
 
-    String day;
+    double day;
     double temp_min;
     double temp_max;
     double humidity;
     String description;
-    double speed;
+    double speedprev;
     double rain;
     double eve;
     double morn;
 
-    public String getDay() {
+    public double getDay() {
         return day;
     }
 
@@ -36,8 +36,8 @@ public class Forcast {
         return description;
     }
 
-    public double getSpeed() {
-        return speed;
+    public double getSpeedprev() {
+        return getSpeedprev();
     }
 
     public double getRain() {
@@ -52,13 +52,13 @@ public class Forcast {
         return morn;
     }
 
-    public Forcast(String day, double temp, double temp_min, double temp_max, double humidity, String description, double speed, double rain, double eve, double morn) {
+    public Forcast(double day, double temp, double temp_min, double temp_max, double humidity, String description, double speedprev, double rain, double eve, double morn) {
         this.day = day;
         this.temp_max = temp_min;
         this.temp_min = temp_max;
         this.humidity = humidity;
         this.description = description;
-        this.speed = speed;
+        this.speedprev = speedprev;
         this.rain = rain;
         this.eve = eve;
         this.morn = morn;
@@ -69,7 +69,7 @@ public class Forcast {
     }
 
     
-    public void setDay(String day) {
+    public void setDay(double day) {
         this.day = day;
     }
 
@@ -89,8 +89,8 @@ public class Forcast {
         this.description = description;
     }
 
-    public void setSpeed(double speed) {
-        this.speed = speed;
+    public void setSpeed(double speedprev) {
+        this.speedprev = speedprev;
     }
 
     public void setRain(double rain) {
