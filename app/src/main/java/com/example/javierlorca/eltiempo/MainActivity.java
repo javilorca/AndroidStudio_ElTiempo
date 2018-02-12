@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +31,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txttemp_min;
     TextView txverror;//TextView de pruebas
     ListView listaprev;
-
+    TextView txprueba;
     SharedPreferences mPrefs;
 
     Weather w;
@@ -55,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         txverror=(TextView)findViewById(R.id.txverror);
-
         txttemp_max=(TextView)findViewById(R.id.txttemp_max);
         txttemp_min=(TextView)findViewById(R.id.txttemp_min);
         txtviento=(TextView)findViewById(R.id.txtviento);
@@ -67,16 +74,15 @@ public class MainActivity extends AppCompatActivity {
         //txvprueba=(TextView)findViewById(R.id.txvprueba);
         final TextView txverror=(TextView)findViewById(R.id.txverror);
         mPrefs=getPreferences(MODE_PRIVATE);
-
+        txprueba=(TextView)findViewById(R.id.txprueba);
         final Context context=this;
 
 
-        //array con los elementos que iran en la lista
+        //array con los elementos que iran en la lista----------------------------------------------------------------
         String[] values = new String[]{"day","min","max","eve","humidity","morn","speed", "description"};
         //adaptador para asignar la forma en que se mostraran los elementos
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
         listaprev.setAdapter(adapter);//asignamos el adaptador al ListView creado
-
 
 
         //recupero los datos almacenados-------------------------------------
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         w = gsonrecu.fromJson(jsonrec, Weather.class);
         if(w!=null){
             showData();
+
         }else{
             loadData(context);
         }
@@ -93,7 +100,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // Toast.makeText(context,"Loading", Toast.LENGTH_SHORT).show();
+
                 loadData(context);
+                loadDataPrev(context);
             }
 
         });
@@ -103,20 +113,11 @@ public class MainActivity extends AppCompatActivity {
         Gson gsonrecuprev = new Gson();
         String jsonrecprev = mPrefs.getString("f", "");
         f = gsonrecuprev.fromJson(jsonrecprev, Forcast.class);
-        if(w!=null){
+        if(f!=null){
             showData();
-        }else{
+        }else {
             loadData(context);
         }
-
-        FloatingActionButton fabprev = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadData(context);
-            }
-
-        });
     }
 
     public void loadData(Context context){
@@ -170,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
+        Toast.makeText(context,"Loading", Toast.LENGTH_SHORT).show();
         //COMENTARIO
     }//fin load data
 
@@ -182,9 +183,10 @@ public class MainActivity extends AppCompatActivity {
         /**----------------------INICIO SEGUNDA API------------------------**/
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url ="http://samples.openweathermap.org/data/2.5/forecast/daily?id=524901&appid=b1b15e88fa797225412429c1c50c122a1";
+        String url ="http://api.openweathermap.org/data/2.5/forecast?lat=3&lon=2&appid=530cfcd9c60a752f1128d67c5f11ecad";
 
         // Request a string response from the provided URL.
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -192,43 +194,44 @@ public class MainActivity extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         try {
                             JSONObject json= new JSONObject(response);
-                            JSONObject list=json.getJSONObject("list");
-                            JSONObject temp=json.getJSONObject("temp");
-                            JSONObject humidity=json.getJSONObject("humidity");
-                            JSONObject description=json.getJSONObject("description");
-                            JSONObject speedprev=json.getJSONObject("speed");
-                            double day = temp.getDouble("temp");//recibe la temperatura del dia
-                            //String description=description.getString("description");//no es necesario
-                            double eve=temp.getDouble("eve");
-                            double morn=temp.getDouble("morn");
-                            double temp_min=temp.getDouble("min");
-                            double temp_max=temp.getDouble("max");
-                            double humitidy=humidity.getDouble("humidity");
-                            double speed=speedprev.getDouble("speed");
-                            //String name=json.getString("name");
-                            int code=json.getInt("cod");
+                            JSONArray list=json.getJSONArray("list");
+                            Forcast item;
+                            List<Forcast> listaForcast = new ArrayList<Forcast>();
+                            for(int i=0;i<list.length();i++){
+                                 item = new Forcast();
+                                 JSONObject itemObject = list.getJSONObject(i);
+                                 JSONObject main = itemObject.getJSONObject("main");
+                                 item.setTemp(main.getDouble("temp"));
+                                 item.setTemp_max(main.getDouble("temp_max"));
+                                 item.setTemp_min(main.getDouble("temp_min"));
+                                 item.setHumidity(main.getDouble("humidity"));
 
-                            f=new Forcast();
-                            f.setDay(list.getDouble("day"));//day es temperatura del dia
-                            f.setTemp_min(list.getDouble("min"));
-                            f.setTemp_max(list.getDouble("max"));
-                            f.setEve(list.getDouble("eve"));
-                            f.setHumidity(list.getDouble("humidity"));
-                            f.setMorn(list.getDouble("morn"));
-                            f.setSpeed(list.getDouble("speed"));
-                            f.setDescription(list.getString("description"));
+                                 JSONObject wind = itemObject.getJSONObject("wind");
+                                 item.setSpeedprev(wind.getDouble("speed"));
+                                 item.setDeg(wind.getDouble("deg"));
 
+                                 DateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                 Date dt_txt = format.parse(itemObject.getString("dt_txt"));
+                                 int dia = dt_txt.getDay();
 
-                            //en JSON almaceno objetos
+                                 item.setDt_txt(dt_txt);//recibe el dia
+
+                                 listaForcast.add(item);
+                            }
+                           showDataPrev(listaForcast.get(0));
+
+                           //en JSON almaceno objetos
                             SharedPreferences.Editor prefsEditor = mPrefs.edit();
                             Gson gson= new Gson();
-                            String jsonpref=gson.toJson(w);
-                            prefsEditor.putString("f", jsonpref);
+                            String jsonprefprev=gson.toJson(f);
+                            prefsEditor.putString("f", jsonprefprev);
                             prefsEditor.commit();
 
                             showData();
 
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (ParseException e) {
                             e.printStackTrace();
                         }
                     }
@@ -260,8 +263,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showDataPrev(){
+    public void showDataPrev(Forcast item){
+        txprueba.setText(""+item.getDt_txt());
 
+        int size = ArrayAdapter();
+        final String[] dia = new String[];
+        dia = ArrayAdapter();
+        for(int i=0; i<size; i++){
+            //Obtiene el campo Descripción y lo agrega al array de strings "zona".
+            dia[i] = ArrayAdapter.get(i).getDescripcion();
+
+        }
+        zona[size - 1] = "TODOS"; // Se le resta 1 porque los indices de los arrays inician en 0
+
+
+        //Toast toast = Toast.makeText(getApplicationContext(),"Toast prueba", Toast.LENGTH_SHORT);
+        //toast.show();
 
     }
 

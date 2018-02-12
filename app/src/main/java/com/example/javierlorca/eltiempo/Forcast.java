@@ -1,5 +1,7 @@
 package com.example.javierlorca.eltiempo;
 
+import java.util.Date;
+
 /**
  * Created by Javier Lorca on 08/02/2018.
  */
@@ -7,6 +9,7 @@ package com.example.javierlorca.eltiempo;
 public class Forcast {
 
     double day;
+    double temp;
     double temp_min;
     double temp_max;
     double humidity;
@@ -15,9 +18,28 @@ public class Forcast {
     double rain;
     double eve;
     double morn;
+    Date dt_txt;
+    Double deg;
+
+    public Date getDt_txt() {
+        return dt_txt;
+    }
+
+    public void setDt_txt(Date dt_txt) {
+        this.dt_txt = dt_txt;
+    }
+
+    public Double getDeg() {
+        return deg;
+    }
+
+    public void setDeg(Double deg) {
+        this.deg = deg;
+    }
 
     public double getDay() {
         return day;
+
     }
 
     public double getTemp_min() {
@@ -40,11 +62,21 @@ public class Forcast {
         return getSpeedprev();
     }
 
+    public void setTemp(double temp) {
+        this.temp = temp;
+    }
+
     public double getRain() {
+
         return rain;
     }
 
+    public double getTemp() {
+        return temp;
+    }
+
     public double getEve() {
+
         return eve;
     }
 
@@ -89,7 +121,7 @@ public class Forcast {
         this.description = description;
     }
 
-    public void setSpeed(double speedprev) {
+    public void setSpeedprev(double speedprev) {
         this.speedprev = speedprev;
     }
 

@@ -179,4 +179,15 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="24dp" />
 
+    <TextView
+        android:id="@+id/txprueba"
+        android:layout_width="122dp"
+        android:layout_height="121dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="24dp"
+        android:hint="hint"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
