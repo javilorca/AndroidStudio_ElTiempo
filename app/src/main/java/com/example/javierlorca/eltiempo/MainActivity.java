@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -37,6 +39,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listaprev;
     TextView txprueba;
     SharedPreferences mPrefs;
+    RecyclerView mRecyclerView;
+    private ForcastAdapter adapter;
 
     Weather w;
     Forcast f;
@@ -70,19 +75,20 @@ public class MainActivity extends AppCompatActivity {
         txtviento=(TextView)findViewById(R.id.txtviento);
         tvxgrados=(TextView)findViewById(R.id.txvgrados);
         tvxprevision=(TextView)findViewById(R.id.txvprevision);
-        ListView listaprev=(ListView)findViewById(R.id.listaprev);
+        //ListView listaprev=(ListView)findViewById(R.id.listaprev);
         //txvprueba=(TextView)findViewById(R.id.txvprueba);
         final TextView txverror=(TextView)findViewById(R.id.txverror);
         mPrefs=getPreferences(MODE_PRIVATE);
         txprueba=(TextView)findViewById(R.id.txprueba);
         final Context context=this;
+        //listaprev = (ListView)findViewById(R.id.listaprev);
+        //mRecyclerView=(RecyclerView)findViewById(R.id.mRecyclerView);
 
 
-        //array con los elementos que iran en la lista----------------------------------------------------------------
-        String[] values = new String[]{"day","min","max","eve","humidity","morn","speed", "description"};
-        //adaptador para asignar la forma en que se mostraran los elementos
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
-        listaprev.setAdapter(adapter);//asignamos el adaptador al ListView creado
+        // Get a handle to the RecyclerView.
+        mRecyclerView = (RecyclerView) findViewById(R.id.mRecyclerView);
+        // Give the RecyclerView a default layout manager.
+
 
 
         //recupero los datos almacenados-------------------------------------
@@ -196,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject json= new JSONObject(response);
                             JSONArray list=json.getJSONArray("list");
                             Forcast item;
-                            List<Forcast> listaForcast = new ArrayList<Forcast>();
+                            LinkedList<Forcast> listaForcast = new LinkedList<>();
                             for(int i=0;i<list.length();i++){
                                  item = new Forcast();
                                  JSONObject itemObject = list.getJSONObject(i);
@@ -218,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
                                  listaForcast.add(item);
                             }
-                           showDataPrev(listaForcast.get(0));
+                           showDataPrev(listaForcast);
 
                            //en JSON almaceno objetos
                             SharedPreferences.Editor prefsEditor = mPrefs.edit();
@@ -263,19 +269,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showDataPrev(Forcast item){
-        txprueba.setText(""+item.getDt_txt());
+    public void showDataPrev(LinkedList<Forcast> item){
+       // txprueba.setText(""+item.getDt_txt());
+      //  listaprev=(ListView)findViewById(R.id.listaprev);
+        mRecyclerView=(RecyclerView)findViewById(R.id.mRecyclerView);
 
-        int size = ArrayAdapter();
+        ForcastAdapter adapter = new ForcastAdapter(getApplicationContext(), item);
+        mRecyclerView.setAdapter(adapter);//asignamos el adaptador al RecyclerView creado
+
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //int size = ArrayAdapter();
+
+        List<Forcast> prevision = new ArrayList<>();
+
+
+        /**
         final String[] dia = new String[];
-        dia = ArrayAdapter();
+        //dia = ArrayAdapter();
         for(int i=0; i<size; i++){
             //Obtiene el campo Descripción y lo agrega al array de strings "zona".
             dia[i] = ArrayAdapter.get(i).getDescripcion();
-
         }
         zona[size - 1] = "TODOS"; // Se le resta 1 porque los indices de los arrays inician en 0
-
+        **/
 
         //Toast toast = Toast.makeText(getApplicationContext(),"Toast prueba", Toast.LENGTH_SHORT);
         //toast.show();

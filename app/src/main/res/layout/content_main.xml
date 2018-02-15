@@ -28,7 +28,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="188dp"
-        android:hint="grados"
+        android:hint="@string/grados"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -168,17 +168,6 @@
         app:layout_constraintVertical_bias="0.069"
         android:layout_marginRight="16dp" />
 
-    <ListView
-        android:id="@+id/listaprev"
-        android:layout_width="335dp"
-        android:layout_height="229dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="24dp"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="24dp" />
-
     <TextView
         android:id="@+id/txprueba"
         android:layout_width="122dp"
@@ -189,5 +178,20 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.888" />
 
 </android.support.constraint.ConstraintLayout>
