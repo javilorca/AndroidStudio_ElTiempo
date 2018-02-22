@@ -10,7 +10,6 @@
     tools:showIn="@layout/activity_main">
 
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="400dp"
@@ -18,8 +17,7 @@
         android:layout_marginStart="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fondo"
-        android:layout_marginLeft="4dp" />
+        app:srcCompat="@drawable/fondo" />
 
     <TextView
         android:id="@+id/txvgrados"

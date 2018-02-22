@@ -7,29 +7,28 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_full_open_on_phone"
-        android:layout_marginLeft="28dp" />
+        app:srcCompat="@drawable/sol" />
 
     <TextView
-        android:id="@+id/txtempactual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/txtemp"
+        android:layout_width="54dp"
+        android:layout_height="17dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:hint="temp actual"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/txtempact"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintVertical_bias="0.51" />
 
     <TextView
         android:id="@+id/txmax"
@@ -38,7 +37,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:hint="max"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/txmaxactual"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -46,13 +45,13 @@
         android:layout_width="53dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:hint="min"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/txminactual"
         app:layout_constraintTop_toBottomOf="@+id/txmax"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/txviento"
@@ -70,29 +69,27 @@
         app:layout_constraintVertical_bias="0.511" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/txmaxactual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:text="0"
-        app:layout_constraintStart_toEndOf="@+id/txtempactual"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="206dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/txminactual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="0"
-        app:layout_constraintStart_toEndOf="@+id/txtempactual"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toEndOf="@+id/txmaxactual"
+        app:layout_constraintTop_toBottomOf="@+id/txtemp" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txtempact"
         android:layout_width="23dp"
         android:layout_height="24dp"
+        android:layout_marginStart="8dp"
         android:text="0"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         tools:layout_editor_absoluteY="28dp" />

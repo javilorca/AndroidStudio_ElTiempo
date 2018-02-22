@@ -30,14 +30,16 @@ public class ForcastAdapter extends RecyclerView.Adapter<ForcastAdapter.WordView
 
         public final TextView txtTempMax;
         public final TextView txtTempMin;
-        public final TextView txtViento;
+        public final TextView txvientoactual;
+        public final TextView txtempact;
         final ForcastAdapter mAdapter;
 
         public WordViewHolder(View itemView, ForcastAdapter adapter) {
             super(itemView);
             txtTempMax = (TextView) itemView.findViewById(R.id.txmax);
             txtTempMin=(TextView) itemView.findViewById(R.id.txmin);
-            txtViento=(TextView)itemView.findViewById(R.id.txvientoactual);
+            txvientoactual=(TextView)itemView.findViewById(R.id.txvientoactual);
+            txtempact=(TextView) itemView.findViewById(R.id.txtempact);
             this.mAdapter = adapter;
 
             final LinkedList<String> mWordList;
@@ -54,9 +56,11 @@ public class ForcastAdapter extends RecyclerView.Adapter<ForcastAdapter.WordView
     @Override
     public void onBindViewHolder(ForcastAdapter.WordViewHolder holder, int position) {
             Forcast mCurrent = forcastList.get(position);
-            holder.txtTempMax.setText(""+mCurrent.getTemp_max());
-            holder.txtTempMin.setText(""+mCurrent.getTemp_min());
-            holder.txtViento.setText(""+mCurrent.getDeg());
+            holder.txtTempMax.setText("%.0"+mCurrent.getTemp_max());
+            holder.txtTempMin.setText("%.0"+mCurrent.getTemp_min());
+            holder.txtempact.setText("%.0"+mCurrent.getTemp())
+            //holder.txvientoactual.setText(""+mCurrent.getDeg());
+      ;
 
     }
 
