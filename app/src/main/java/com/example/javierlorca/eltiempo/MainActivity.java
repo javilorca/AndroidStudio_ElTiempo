@@ -38,6 +38,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
             loadData(context);
         }
 
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,16 +117,18 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
+        /*
         //recupero los datos almacenados de PREVISIONES-----------------------
         Gson gsonrecuprev = new Gson();
-        String jsonrecprev = mPrefs.getString("f", "");
-        f = gsonrecuprev.fromJson(jsonrecprev, Forcast.class);
-        if(f!=null){
-            showData();
+        String jsonrecprev = mPrefs.getString("listaForcast", "");
+        List<Forcast> listaForcast = new ArrayList<Forcast>(Arrays.asList(gsonrecuprev.fromJson(jsonrecprev, Forcast[].class)));
+        LinkedList<Forcast> linkedForcast = new LinkedList<>(listaForcast);
+        if(linkedForcast.size()!=0){
+            showDataPrev(linkedForcast);
         }else {
             loadData(context);
         }
+        */
     }
 
     public void loadData(Context context){
@@ -223,15 +228,18 @@ public class MainActivity extends AppCompatActivity {
                                  item.setDt_txt(dt_txt);//recibe el dia
 
                                  listaForcast.add(item);
-                            }
-                           showDataPrev(listaForcast);
 
-                           //en JSON almaceno objetos
+                            }
+                            //en JSON almaceno objetos
                             SharedPreferences.Editor prefsEditor = mPrefs.edit();
                             Gson gson= new Gson();
-                            String jsonprefprev=gson.toJson(f);
-                            prefsEditor.putString("f", jsonprefprev);
+                            String jsonprefprev=gson.toJson(listaForcast);
+                            prefsEditor.putString("listaForcast", jsonprefprev);
                             prefsEditor.commit();
+
+                            showDataPrev(listaForcast);
+
+
 
                             showData();
 

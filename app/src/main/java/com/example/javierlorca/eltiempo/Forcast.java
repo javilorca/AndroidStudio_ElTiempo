@@ -59,7 +59,7 @@ public class Forcast {
     }
 
     public double getSpeedprev() {
-        return getSpeedprev();
+        return speedprev;
     }
 
     public void setTemp(double temp) {
@@ -136,4 +136,10 @@ public class Forcast {
     public void setMorn(double morn) {
         this.morn = morn;
     }
+
+    public double toCelsius(double kelvin){
+
+        return kelvin-273.15;
+    }
+
 }
